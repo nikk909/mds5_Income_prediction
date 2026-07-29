@@ -45,11 +45,56 @@ python dataset/make_binary_50k.py
 
 ---
 
+## Local setup (venv + requirements)
+
+Do **not** commit `.venv/`. Create a local environment and install:
+
+```bash
+python -m venv .venv
+# Windows PowerShell:
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+```
+
+Then regenerate the modeling CSV (after placing the raw Kaggle file in `dataset/`):
+
+```bash
+python dataset/make_binary_50k.py
+```
+
+---
+
+## Issue → commit workflow (required)
+
+**Every closed GitHub Issue must be backed by at least one local commit** whose message references the issue (e.g. `(#2)`).
+
+1. Implement only that Issue’s scope  
+2. `git commit` (English message, include `#N`)  
+3. Close the Issue (after the commit exists)  
+4. Optionally push when ready  
+
+Do **not** close an Issue with no corresponding commit.
+
+---
+
 ## Planned pipeline (later issues)
 
 Ingest → QC → scale → Pearson Top-k → train ≥4 classical models → evaluate (F1/AUC/Recall) → optional `class_weight` ablation → export figures/tables.
 
 Main notebook (later): `diabetes_ml_benchmark.ipynb` / `main.ipynb`.
+
+---
+
+## Progress
+
+| Issue | Status | Local commit |
+|-------|--------|--------------|
+| #1 Docs/Data | Closed | yes (data contract + requirements/venv docs) |
+| #2 EDA | Open | — |
+| #3 Pipeline | Open | — |
+| #4 Models + imbalance | Open | — |
+| #5 Paper-ready | Open | — |
+| #6 Release | Open | — |
 
 ---
 
