@@ -77,11 +77,23 @@ Do **not** close an Issue with no corresponding commit.
 
 ---
 
-## Planned pipeline (later issues)
+## Planned pipeline
 
-Ingest → QC → scale → Pearson Top-k → train ≥4 classical models → evaluate (F1/AUC/Recall) → optional `class_weight` ablation → export figures/tables.
+Ingest → QC → EDA → scale → Pearson Top-k → train ≥4 classical models → evaluate (F1/AUC/Recall) → optional `class_weight` ablation → export figures/tables.
 
-Main notebook (later): `diabetes_ml_benchmark.ipynb` / `main.ipynb`.
+**Final acceptance notebook:** [`diabetes_ml_benchmark.ipynb`](diabetes_ml_benchmark.ipynb) (all Issues append to this file).
+
+---
+
+## EDA highlights (Issue #2)
+
+From `diabetes_ml_benchmark.ipynb` after de-duplication (n ≈ 48,003):
+
+1. **Class imbalance:** ≈ **83.6% : 16.4%** (no diabetes vs prediabetes/diabetes). Do not rank models by Accuracy alone.
+2. **Strongest |Pearson| with target:** GenHlth, HighBP, BMI, DiffWalk, HighChol (then Age, HeartDiseaseorAttack, Income).
+3. **Scale differences** (BMI / MentHlth / PhysHlth) motivate `StandardScaler` for LR / KNN / SVM.
+4. **Vs Adult demo:** features are already numeric → no Label Encoding; focus on scaling + imbalance-aware metrics.
+5. EDA figures: `files/pic/class_balance.png`, `feature_histograms.png`, `feature_boxplots_by_class.png`, `correlation_heatmap.png`.
 
 ---
 
@@ -89,8 +101,8 @@ Main notebook (later): `diabetes_ml_benchmark.ipynb` / `main.ipynb`.
 
 | Issue | Status | Local commit |
 |-------|--------|--------------|
-| #1 Docs/Data | Closed | yes (data contract + requirements/venv docs) |
-| #2 EDA | Open | — |
+| #1 Docs/Data | Closed | yes |
+| #2 EDA | Closed | yes (`diabetes_ml_benchmark.ipynb` EDA section) |
 | #3 Pipeline | Open | — |
 | #4 Models + imbalance | Open | — |
 | #5 Paper-ready | Open | — |
@@ -104,6 +116,8 @@ Main notebook (later): `diabetes_ml_benchmark.ipynb` / `main.ipynb`.
 |------|---------|--------|
 | `dataset/*.py`, `dataset/README.md` | Yes | Reproduce sampling |
 | `dataset/*.csv` | No | Ignored via `*.csv` |
+| `diabetes_ml_benchmark.ipynb` | Yes | Final acceptance notebook |
+| `files/pic/` (EDA figures) | Yes | Paper Analysis inputs |
 | `file/` | No | Local course notes / paper drafts |
 | `.env` | No | Secrets |
 
