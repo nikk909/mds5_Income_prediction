@@ -7,11 +7,15 @@ venv/
 # Jupyter
 .ipynb_checkpoints/
 
-# Data (large files) — keep scripts/docs in dataset/, not CSVs
+# Data (large files) — keep scripts/docs in dataset/, not raw CSVs
 *.csv
 *.xlsx
 *.parquet
 data/
+# Allow small exported metric tables for the paper
+!files/data/*.csv
+!files/data/*.md
+
 
 # Project notes / materials (local only)
 file/

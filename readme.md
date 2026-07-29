@@ -97,13 +97,22 @@ From `diabetes_ml_benchmark.ipynb` after de-duplication (n ≈ 48,003):
 
 ---
 
+## Pipeline highlights (Issue #3)
+
+- Stratified 80/20 split (`random_state=42`) **before** feature selection.
+- Train-only Pearson Top-8: GenHlth, HighBP, BMI, DiffWalk, HighChol, Age, HeartDiseaseorAttack, Income.
+- `StandardScaler` fit on train only; shared scaled features for later models.
+- Export: `files/data/selected_features.csv`.
+
+---
+
 ## Progress
 
 | Issue | Status | Local commit |
 |-------|--------|--------------|
 | #1 Docs/Data | Closed | yes |
-| #2 EDA | Closed | yes (`diabetes_ml_benchmark.ipynb` EDA section) |
-| #3 Pipeline | Open | — |
+| #2 EDA | Closed | yes |
+| #3 Pipeline | Closed | yes (train-only Top-8 + StandardScaler) |
 | #4 Models + imbalance | Open | — |
 | #5 Paper-ready | Open | — |
 | #6 Release | Open | — |
@@ -117,7 +126,7 @@ From `diabetes_ml_benchmark.ipynb` after de-duplication (n ≈ 48,003):
 | `dataset/*.py`, `dataset/README.md` | Yes | Reproduce sampling |
 | `dataset/*.csv` | No | Ignored via `*.csv` |
 | `diabetes_ml_benchmark.ipynb` | Yes | Final acceptance notebook |
-| `files/pic/` (EDA figures) | Yes | Paper Analysis inputs |
+| `files/pic/`, `files/data/*.csv` | Yes | Paper Analysis inputs (small exports) |
 | `file/` | No | Local course notes / paper drafts |
 | `.env` | No | Secrets |
 
