@@ -83,6 +83,41 @@ Ingest → QC → EDA → scale → Pearson Top-k → train ≥4 classical model
 
 **Final acceptance notebook:** [`diabetes_ml_benchmark.ipynb`](diabetes_ml_benchmark.ipynb) (all Issues append to this file).
 
+### Pipeline architecture (Issue #5)
+
+```mermaid
+flowchart LR
+  A[Ingest 50k CSV] --> B[QC / drop duplicates]
+  B --> C[EDA figures]
+  C --> D[Stratified 80/20 split]
+  D --> E[Train-only Pearson Top-8]
+  E --> F[StandardScaler fit on train]
+  F --> G[5 classical models]
+  G --> H[Metrics + ROC / CM / RF importance]
+  G --> I[class_weight ablation]
+  H --> J[files/pic + files/data]
+  I --> J
+  J --> K[Word / PDF paper]
+```
+
+### Metrics and split protocol
+
+| Item | Definition / setting |
+|------|----------------------|
+| Split | Stratified `train_test_split`, `test_size=0.2`, `random_state=42` |
+| Feature selection | Pearson \|r\| with target on **training set only**; keep Top-8 |
+| Scaling | `StandardScaler` fit on train; transform train/test |
+| Accuracy | Overall correct rate (misleading under ~16% positives) |
+| Precision / Recall / F1 | Positive class = `Diabetes_binary=1` |
+| AUC | ROC AUC from `predict_proba` or decision scores |
+| Imbalance ablation | LR / RF with `class_weight=None` vs `'balanced'` |
+
+Word-ready exports live under `files/pic/` and `files/data/` (stable filenames for captions).
+
+**Course paper (Word + PDF):**  
+[`Classical_ML_Binary_Diabetes_Risk_Prediction_YueMa.docx`](Classical_ML_Binary_Diabetes_Risk_Prediction_YueMa.docx) ·  
+[`Classical_ML_Binary_Diabetes_Risk_Prediction_YueMa.pdf`](Classical_ML_Binary_Diabetes_Risk_Prediction_YueMa.pdf)
+
 ---
 
 ## EDA highlights (Issue #2)
@@ -142,7 +177,7 @@ Tables: `files/data/metrics_benchmark.csv`, `metrics_imbalance_ablation.csv`.
 | #2 EDA | Closed | yes |
 | #3 Pipeline | Closed | yes |
 | #4 Models + imbalance | Closed | yes (5 models + class_weight ablation) |
-| #5 Paper-ready | Open | — |
+| #5 Paper-ready | Closed | yes (exports + README architecture + Word/PDF) |
 | #6 Release | Open | — |
 
 ---
@@ -155,6 +190,7 @@ Tables: `files/data/metrics_benchmark.csv`, `metrics_imbalance_ablation.csv`.
 | `dataset/*.csv` | No | Ignored via `*.csv` |
 | `diabetes_ml_benchmark.ipynb` | Yes | Final acceptance notebook |
 | `files/pic/`, `files/data/*.csv` | Yes | Paper Analysis inputs (small exports) |
+| `Classical_ML_Binary_Diabetes_Risk_Prediction_YueMa.docx/.pdf` | Yes | Course submission paper |
 | `file/` | No | Local course notes / paper drafts |
 | `.env` | No | Secrets |
 
