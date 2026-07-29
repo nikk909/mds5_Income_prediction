@@ -11,8 +11,9 @@ venv/
 *.csv
 *.xlsx
 *.parquet
-data/
+/data/
 # Allow small exported metric tables for the paper
+!files/data/
 !files/data/*.csv
 !files/data/*.md
 
