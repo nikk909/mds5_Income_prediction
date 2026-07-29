@@ -106,14 +106,42 @@ From `diabetes_ml_benchmark.ipynb` after de-duplication (n ≈ 48,003):
 
 ---
 
+## Model results (Issue #4)
+
+Hold-out metrics (default weights; sorted by F1). Prefer **F1 / AUC / Recall** over Accuracy under ~16% positives.
+
+| Model | Accuracy | Precision | Recall | F1 | AUC |
+|------|----------|-----------|--------|-----|-----|
+| KNN | 0.8170 | 0.4004 | 0.2352 | **0.2964** | 0.7087 |
+| Decision Tree | 0.8352 | 0.4931 | 0.2034 | 0.2880 | 0.7706 |
+| Random Forest | 0.8393 | 0.5284 | 0.1774 | 0.2656 | 0.8017 |
+| Logistic Regression | 0.8410 | 0.5467 | 0.1710 | 0.2605 | 0.8067 |
+| Linear SVM | 0.8416 | 0.6024 | 0.0973 | 0.1675 | **0.8070** |
+
+Class-weight ablation (LR / RF):
+
+| Setting | Accuracy | Recall | F1 | AUC |
+|---------|----------|--------|-----|-----|
+| LR (none) | 0.8410 | 0.1710 | 0.2605 | 0.8067 |
+| LR (balanced) | 0.7233 | **0.7463** | **0.4691** | 0.8074 |
+| RF (none) | 0.8393 | 0.1774 | 0.2656 | 0.8017 |
+| RF (balanced) | 0.7388 | **0.6993** | **0.4673** | 0.7976 |
+
+**Draft recommendation:** for screening-oriented minority detection, prefer `class_weight='balanced'` (especially Logistic Regression). Do not pick models by Accuracy alone.
+
+Figures: `roc_curves_benchmark.png`, `confusion_matrix_best.png`, `rf_feature_importance.png`, `imbalance_f1_recall_comparison.png`, `metrics_bar_benchmark.png`.  
+Tables: `files/data/metrics_benchmark.csv`, `metrics_imbalance_ablation.csv`.
+
+---
+
 ## Progress
 
 | Issue | Status | Local commit |
 |-------|--------|--------------|
 | #1 Docs/Data | Closed | yes |
 | #2 EDA | Closed | yes |
-| #3 Pipeline | Closed | yes (train-only Top-8 + StandardScaler) |
-| #4 Models + imbalance | Open | — |
+| #3 Pipeline | Closed | yes |
+| #4 Models + imbalance | Closed | yes (5 models + class_weight ablation) |
 | #5 Paper-ready | Open | — |
 | #6 Release | Open | — |
 
