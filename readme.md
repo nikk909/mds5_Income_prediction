@@ -182,13 +182,13 @@ Tables: `files/data/metrics_benchmark.csv`, `metrics_imbalance_ablation.csv`.
 
 Short assumptions used in the term-paper Theory / Conclusions sections:
 
-| Model | Core assumption / intuition here |
-|-------|-----------------------------------|
+| Model               | Core assumption / intuition here                                                                                                                    |
+| ---------------------| -----------------------------------------------------------------------------------------------------------------------------------------------------|
 | Logistic Regression | Log-odds of diabetes risk are roughly linear in scaled Top-8 features; class weights rebalance the loss toward the minority (prediabetes/diabetes). |
-| KNN | Similar health profiles (BMI, BP, GenHlth, …) share similar labels in local neighborhoods; sensitive to feature scale and imbalance. |
-| Decision Tree | Axis-aligned splits on clinical/self-report features can form readable rules; deep trees overfit survey noise. |
-| Random Forest | Averaging many trees stabilizes predictions and yields Gini/importance cues; still benefits from class weights under skew. |
-| Linear SVM | Separates classes with a max-margin hyperplane in scaled space; without weighting it can favor the majority class. |
+| KNN                 | Similar health profiles (BMI, BP, GenHlth, …) share similar labels in local neighborhoods; sensitive to feature scale and imbalance.                |
+| Decision Tree       | Axis-aligned splits on clinical/self-report features can form readable rules; deep trees overfit survey noise.                                      |
+| Random Forest       | Averaging many trees stabilizes predictions and yields Gini/importance cues; still benefits from class weights under skew.                          |
+| Linear SVM          | Separates classes with a max-margin hyperplane in scaled space; without weighting it can favor the majority class.                                  |
 
 **Literature directions (used in the paper):** BRFSS / health-indicator risk prediction; classical classifiers on tabular clinical survey data; imbalanced learning evaluation (F1 / Recall / ROC-AUC rather than Accuracy alone).
 
@@ -214,33 +214,18 @@ Short assumptions used in the term-paper Theory / Conclusions sections:
 2. Place the raw Kaggle CSV in `dataset/` → run `python dataset/make_binary_50k.py`
 3. Execute `diabetes_ml_benchmark.ipynb` top to bottom (exports land in `files/pic` and `files/data`)
 
----
-
-## Submission checklist
-
-- [x] Term paper Word + PDF in repo root (`*_YueMa.docx` / `*_YueMa.pdf`)
-- [x] Public GitHub implementation (notebook + sampling script + exports)
-- [x] Data access documented (Kaggle link + `dataset/README.md`; large CSVs not committed)
-- [x] Architecture + pipeline diagrams in README (`files/pic/architecture_diagram.png`, `pipeline_overview.png`)
-- [x] Results tables and limitations documented above
-- [ ] Sign / attach the course **Affidavit** (academic integrity) with the LMS upload if required
-- [ ] Confirm paper formatting (Arial 11, double spacing, APA 6 references) before final LMS submit
-
-**Release hygiene:** no tracked `.env`; modeling CSVs remain gitignored; architecture/results figures are small PNG/CSV exports only.
-
----
 
 ## Repository boundaries
 
-| Path | In Git? | Notes |
-|------|---------|--------|
-| `dataset/*.py`, `dataset/README.md` | Yes | Reproduce sampling |
-| `dataset/*.csv` | No | Ignored via `*.csv` |
-| `diabetes_ml_benchmark.ipynb` | Yes | Main experiment notebook |
-| `files/pic/`, `files/data/*.csv` | Yes | Paper Analysis inputs (small exports) |
-| `Classical_ML_Binary_Diabetes_Risk_Prediction_YueMa.docx/.pdf` | Yes | Course submission paper |
-| `file/` | No | Local course notes / drafts |
-| `.env` | No | Secrets |
+| Path                                                           | In Git? | Notes                                 |
+| ----------------------------------------------------------------| ---------| ---------------------------------------|
+| `dataset/*.py`, `dataset/README.md`                            | Yes     | Reproduce sampling                    |
+| `dataset/*.csv`                                                | No      | Ignored via `*.csv`                   |
+| `diabetes_ml_benchmark.ipynb`                                  | Yes     | Main experiment notebook              |
+| `files/pic/`, `files/data/*.csv`                               | Yes     | Paper Analysis inputs (small exports) |
+| `Classical_ML_Binary_Diabetes_Risk_Prediction_YueMa.docx/.pdf` | Yes     | Course submission paper               |
+| `file/`                                                        | No      | Local course notes / drafts           |
+| `.env`                                                         | No      | Secrets                               |
 
 ---
 
